@@ -1,14 +1,7 @@
-import os
-
 from crewai import Agent, Task, Crew
-from langchain_openai import ChatOpenAI
+from langchain_community.llms import Ollama
 
-os.environ["OPENAI_API_KEY"] = "NA"
-
-llm = ChatOpenAI(
-    model="llama3",
-    base_url="http://192.168.1.108:11434/v1"
-)
+llm = Ollama(model="llama3", base_url="http://192.168.1.108:11434")
 
 general_agent = Agent(role="Math Professor",
                       goal="""Provide the solution to the students that are asking mathematical questions and give 
