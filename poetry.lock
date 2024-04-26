@@ -747,13 +747,13 @@ files = [
 
 [[package]]
 name = "crewai"
-version = "0.28.8"
+version = "0.28.9rc2"
 description = "Cutting-edge framework for orchestrating role-playing, autonomous AI agents. By fostering collaborative intelligence, CrewAI empowers agents to work together seamlessly, tackling complex tasks."
 optional = false
 python-versions = "<=3.13,>=3.10"
 files = [
-    {file = "crewai-0.28.8-py3-none-any.whl", hash = "sha256:ce8af4915ed0c43b9f593cd0aef17d9a85557a809d493fddca7609e5a6279c2e"},
-    {file = "crewai-0.28.8.tar.gz", hash = "sha256:02e95d5db7a614794b10527d12996cf211a691d18cb84deff29a43a877bfd405"},
+    {file = "crewai-0.28.9rc2-py3-none-any.whl", hash = "sha256:6b0b6c3ddcf5f350268f360b1ccc70ee4102a3c824b71f76a178df1f29419fcc"},
+    {file = "crewai-0.28.9rc2.tar.gz", hash = "sha256:a4d8ee3689eb861237c25ca4ce2ca7a18d6acd9b186181fa25f9c011025e25e2"},
 ]
 
 [package.dependencies]
@@ -768,7 +768,7 @@ opentelemetry-api = ">=1.22.0,<2.0.0"
 opentelemetry-exporter-otlp-proto-http = ">=1.22.0,<2.0.0"
 opentelemetry-sdk = ">=1.22.0,<2.0.0"
 pydantic = ">=2.4.2,<3.0.0"
-python-dotenv = "1.0.0"
+python-dotenv = ">=1.0.0,<2.0.0"
 regex = ">=2023.12.25,<2024.0.0"
 
 [package.extras]
@@ -3526,13 +3526,13 @@ six = ">=1.5"
 
 [[package]]
 name = "python-dotenv"
-version = "1.0.0"
+version = "1.0.1"
 description = "Read key-value pairs from a .env file and set them as environment variables"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "python-dotenv-1.0.0.tar.gz", hash = "sha256:a8df96034aae6d2d50a4ebe8216326c61c3eb64836776504fcca410e5937a3ba"},
-    {file = "python_dotenv-1.0.0-py3-none-any.whl", hash = "sha256:f5971a9226b701070a4bf2c38c89e5a3f0d64de8debda981d1db98583009122a"},
+    {file = "python-dotenv-1.0.1.tar.gz", hash = "sha256:e324ee90a023d808f1959c46bcbc04446a10ced277783dc6ee09987c37ec10ca"},
+    {file = "python_dotenv-1.0.1-py3-none-any.whl", hash = "sha256:f7b63ef50f1b690dddf550d03497b66d609393b40b564ed0d674909a68ebf16a"},
 ]
 
 [package.extras]
@@ -4906,4 +4906,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.12,<=3.13"
-content-hash = "5842c6d6e66e4123f3aee673a9700c2605f8c13fdd9b5c6362ca608d3eaee0ac"
+content-hash = "7b7e0031146aaa8c1038daf72711d44213f4326130608ab240ca58938651591c"
