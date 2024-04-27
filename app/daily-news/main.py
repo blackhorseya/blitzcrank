@@ -1,3 +1,5 @@
+import os
+
 from crewai import Agent, Task, Crew, Process
 from crewai_tools import SerperDevTool
 from dotenv import load_dotenv
@@ -5,6 +7,8 @@ from dotenv import load_dotenv
 load_dotenv()
 
 search_tool = SerperDevTool()
+
+os.environ["OPENAI_MODEL_NAME"] = "gpt-3.5-turbo"
 
 # Creating the News Collector Agent with memory and verbose mode
 news_collector = Agent(
@@ -56,28 +60,30 @@ organize_data_task = Task(
     agent=content_organizer,
 )
 
+# Creating the Markdown Generator Agent
+markdown_generator = Agent(
+    role='Report Compiler',
+    goal='Generate a Markdown file from organized news data.',
+    backstory=(
+        "With a talent for storytelling, you excel at transforming raw data into engaging narratives."
+        "Your goal is to compile the organized news data into a Markdown file for easy consumption."
+    ),
+    allow_delegation=True
+)
 
-# Defining the function to organize data
-def organize_data(raw_data):
-    ret = []
-    for item in raw_data:
-        ret.append({
-            'headline': item['title'],
-            'date': item['pubDate'],
-            'author': item.get('author', 'Unknown'),
-            'summary': item['description']
-        })
-    return ret
-
-
-sample_data = fetch_news_task.execute()
-organized_data = organize_data(sample_data)
+# Task to generate Markdown
+generate_markdown_task = Task(
+    description='Convert organized data into Markdown format.',
+    agent=markdown_generator,
+    expected_output='Markdown file',
+    output_file='tech_news_report.md'
+)
 
 # Initialize the Crew with the News Collector Agent
 crew = Crew(
     name='Daily Tech News Crew',
-    agents=[news_collector, content_organizer],
-    tasks=[fetch_news_task, organize_data_task],
+    agents=[news_collector, content_organizer, markdown_generator],
+    tasks=[fetch_news_task, organize_data_task, generate_markdown_task],
     verbose=True,
     process=Process.sequential,
     memory=True,
