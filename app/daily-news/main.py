@@ -31,12 +31,53 @@ fetch_news_task = Task(
     agent=news_collector,
 )
 
+# Creating the Content Organizer Agent with memory and verbose mode
+content_organizer = Agent(
+    role='Content Organizer',
+    goal='Organize raw news data into structured format.',
+    verbose=True,
+    memory=True,
+    backstory=(
+        "With a knack for structuring information, you excel at organizing raw data into meaningful insights."
+        "Your goal is to extract key details from the news articles and present them in a structured format."
+    ),
+    allow_delegation=True
+)
+
+# Task for organizing data from raw news articles
+organize_data_task = Task(
+    description=(
+        "Organize the raw news data into a structured format."
+        "Focus on extracting the headline, date, author, and summary of each news article."
+        "Present the organized data in a clear and concise manner."
+    ),
+    expected_output='A structured dataset containing the headline, date, author, and summary of each news article.',
+    tools=[],
+    agent=content_organizer,
+)
+
+
+# Defining the function to organize data
+def organize_data(raw_data):
+    ret = []
+    for item in raw_data:
+        ret.append({
+            'headline': item['title'],
+            'date': item['pubDate'],
+            'author': item.get('author', 'Unknown'),
+            'summary': item['description']
+        })
+    return ret
+
+
+sample_data = fetch_news_task.execute()
+organized_data = organize_data(sample_data)
 
 # Initialize the Crew with the News Collector Agent
 crew = Crew(
     name='Daily Tech News Crew',
-    agents=[news_collector],
-    tasks=[fetch_news_task],
+    agents=[news_collector, content_organizer],
+    tasks=[fetch_news_task, organize_data_task],
     verbose=True,
     process=Process.sequential,
     memory=True,
