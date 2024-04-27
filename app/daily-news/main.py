@@ -21,7 +21,7 @@ news_collector = Agent(
         "Your goal is to keep up with the latest developments and share them with the world."
     ),
     tools=[search_tool],
-    allow_delegation=True
+    allow_delegation=True,
 )
 
 # Task for the News Collector to fetch news articles
@@ -45,7 +45,7 @@ content_organizer = Agent(
         "With a knack for structuring information, you excel at organizing raw data into meaningful insights."
         "Your goal is to extract key details from the news articles and present them in a structured format."
     ),
-    allow_delegation=True
+    allow_delegation=True,
 )
 
 # Task for organizing data from raw news articles
@@ -68,7 +68,7 @@ markdown_generator = Agent(
         "With a talent for storytelling, you excel at transforming raw data into engaging narratives."
         "Your goal is to compile the organized news data into a Markdown file for easy consumption."
     ),
-    allow_delegation=True
+    allow_delegation=True,
 )
 
 # Task to generate Markdown
