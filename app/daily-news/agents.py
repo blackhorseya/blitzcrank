@@ -23,7 +23,6 @@ class Agents:
             ),
             tools=[SerperDevTool()],
             verbose=True,
-            memory=True,
             llm=self.Ollama,
         )
 
@@ -37,9 +36,8 @@ class Agents:
                 Your goal is to extract key details from the news articles and present them in a structured format.
                 """
             ),
-            tools=[SerperDevTool()],
+            tools=[],
             verbose=True,
-            memory=True,
             llm=self.Ollama,
         )
 
@@ -51,7 +49,7 @@ class Agents:
                 """With a talent for storytelling, you excel at transforming raw data into engaging narratives. Your 
                 goal is to compile the organized news data into a Markdown file for easy consumption."""
             ),
-            tools=[SerperDevTool()],
+            tools=[],
             verbose=True,
             llm=self.Ollama,
         )
