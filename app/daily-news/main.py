@@ -25,9 +25,9 @@ crew = Crew(
     agents=[news_collector, content_organizer, markdown_generator],
     tasks=[fetch_news_task, organize_data_task, generate_markdown_task],
     verbose=True,
+    memory=True,
 )
 
 if __name__ == '__main__':
     # Starting the task execution process with enhanced feedback
     result = crew.kickoff()
-    print(result)
