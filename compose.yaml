@@ -1,0 +1,5 @@
+services:
+  daily-news:
+    image: ghcr.io/blackhorseya/blitzcrank
+    build:
+      context: .
