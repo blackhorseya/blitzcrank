@@ -20,6 +20,7 @@ class Tasks:
             ),
             expected_output=f'A single document containing the latest technology news articles on {topic}.',
             agent=agent,
+            tools=[],
         )
 
     def organize_data_task(self, agent: Agent) -> Task:
@@ -37,6 +38,7 @@ class Tasks:
                 f"""A structured dataset containing the headline, date, author, and summary of each news article."""
             ),
             agent=agent,
+            tools=[],
         )
 
     def generate_markdown_task(self, agent: Agent) -> Task:
@@ -51,4 +53,5 @@ class Tasks:
             expected_output='Markdown file',
             output_file='tech_news_report.md',
             agent=agent,
+            tools=[],
         )

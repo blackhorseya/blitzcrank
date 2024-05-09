@@ -5,8 +5,6 @@ from crewai import Agent
 from crewai_tools import SerperDevTool
 from langchain_community.llms import Ollama
 
-search_tool = SerperDevTool()
-
 
 class Agents:
     def __init__(self):
@@ -23,7 +21,9 @@ class Agents:
                 Your goal is to keep up with the latest developments and share them with the world.
                 """
             ),
-            tools=[search_tool],
+            tools=[SerperDevTool()],
+            verbose=True,
+            memory=True,
             llm=self.Ollama,
         )
 
@@ -37,6 +37,9 @@ class Agents:
                 Your goal is to extract key details from the news articles and present them in a structured format.
                 """
             ),
+            tools=[SerperDevTool()],
+            verbose=True,
+            memory=True,
             llm=self.Ollama,
         )
 
@@ -48,5 +51,7 @@ class Agents:
                 """With a talent for storytelling, you excel at transforming raw data into engaging narratives. Your 
                 goal is to compile the organized news data into a Markdown file for easy consumption."""
             ),
+            tools=[SerperDevTool()],
+            verbose=True,
             llm=self.Ollama,
         )
