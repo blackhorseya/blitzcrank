@@ -10,6 +10,7 @@ python = ">=3.12,<=3.13"
 crewai = {extras = ["tools"], version = "^0.28.8"}
 python-dotenv = "^1.0.1"
 langchain-community = "^0.0.34"
+click = "^8.1.7"
 
 
 [build-system]
