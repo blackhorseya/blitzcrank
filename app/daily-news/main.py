@@ -4,6 +4,8 @@ from crewai import Agent, Task, Crew, Process
 from crewai_tools import SerperDevTool
 from dotenv import load_dotenv
 
+from agents import Agents
+
 load_dotenv()
 
 search_tool = SerperDevTool()
@@ -78,6 +80,8 @@ generate_markdown_task = Task(
     expected_output='Markdown file',
     output_file='tech_news_report.md'
 )
+
+agents = Agents()
 
 # Initialize the Crew with the News Collector Agent
 crew = Crew(
