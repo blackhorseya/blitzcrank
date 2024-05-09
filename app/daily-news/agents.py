@@ -17,12 +17,14 @@ class Agents:
             role='Technology News Harvester',
             goal=f'Collect daily technology news from various sources on {topic}.',
             backstory=dedent(
-                """With a keen eye for detail, you're always on the lookout for the latest news and trends in the 
-                tech industry. Your goal is to keep up with the latest developments and share them with the world."""
+                f"""
+                With a keen eye for detail, you're always on the lookout for the latest news and trends in the 
+                tech industry. 
+                Your goal is to keep up with the latest developments and share them with the world.
+                """
             ),
             tools=[search_tool],
-            allow_delegation=True,
-            llm=self.Ollama,
+            # llm=self.Ollama,
         )
 
     def organizer_agent(self) -> Agent:
@@ -30,12 +32,12 @@ class Agents:
             role='Content Organizer',
             goal='Organize raw news data into structured format.',
             backstory=dedent(
-                """With a knack for structuring information, you excel at organizing raw data into meaningful 
-                insights. Your goal is to extract key details from the news articles and present them in a structured 
-                format."""
+                """
+                With a knack for structuring information, you excel at organizing raw data into meaningful insights. 
+                Your goal is to extract key details from the news articles and present them in a structured format.
+                """
             ),
-            allow_delegation=True,
-            llm=self.Ollama,
+            # llm=self.Ollama,
         )
 
     def generator_agent(self) -> Agent:
@@ -46,6 +48,5 @@ class Agents:
                 """With a talent for storytelling, you excel at transforming raw data into engaging narratives. Your 
                 goal is to compile the organized news data into a Markdown file for easy consumption."""
             ),
-            allow_delegation=True,
-            llm=self.Ollama,
+            # llm=self.Ollama,
         )

@@ -1,4 +1,4 @@
-from crewai import Crew
+from crewai import Crew, Process
 from dotenv import load_dotenv
 
 from agents import Agents

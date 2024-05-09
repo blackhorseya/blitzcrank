@@ -1,9 +1,6 @@
 from textwrap import dedent
 
 from crewai import Agent, Task
-from crewai_tools import SerperDevTool
-
-search_tool = SerperDevTool()
 
 
 class Tasks:
@@ -22,7 +19,6 @@ class Tasks:
                 """
             ),
             expected_output=f'A single document containing the latest technology news articles on {topic}.',
-            tools=[search_tool],
             agent=agent,
         )
 
