@@ -24,7 +24,7 @@ class Agents:
                 """
             ),
             tools=[search_tool],
-            # llm=self.Ollama,
+            llm=self.Ollama,
         )
 
     def organizer_agent(self) -> Agent:
@@ -37,7 +37,7 @@ class Agents:
                 Your goal is to extract key details from the news articles and present them in a structured format.
                 """
             ),
-            # llm=self.Ollama,
+            llm=self.Ollama,
         )
 
     def generator_agent(self) -> Agent:
@@ -48,5 +48,5 @@ class Agents:
                 """With a talent for storytelling, you excel at transforming raw data into engaging narratives. Your 
                 goal is to compile the organized news data into a Markdown file for easy consumption."""
             ),
-            # llm=self.Ollama,
+            llm=self.Ollama,
         )
