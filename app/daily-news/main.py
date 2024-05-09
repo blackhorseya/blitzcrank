@@ -1,6 +1,6 @@
 import os
 
-from crewai import Agent, Task, Crew, Process
+from crewai import Task, Crew, Process
 from crewai_tools import SerperDevTool
 from dotenv import load_dotenv
 
@@ -13,19 +13,12 @@ search_tool = SerperDevTool()
 
 os.environ["OPENAI_MODEL_NAME"] = "gpt-3.5-turbo"
 
-# Creating the News Collector Agent with memory and verbose mode
-news_collector = Agent(
-    role='Technology News Harvester',
-    goal='Collect daily technology news from various sources on {topic}.',
-    verbose=True,
-    memory=True,
-    backstory=(
-        "With a keen eye for detail, you're always on the lookout for the latest news and trends in the tech industry."
-        "Your goal is to keep up with the latest developments and share them with the world."
-    ),
-    tools=[search_tool],
-    allow_delegation=True,
-)
+topic = 'software engineering'
+
+agents = Agents()
+tasks = Tasks()
+
+news_collector = agents.collector_agent(topic)
 
 # Task for the News Collector to fetch news articles
 fetch_news_task = Task(
@@ -39,17 +32,7 @@ fetch_news_task = Task(
 )
 
 # Creating the Content Organizer Agent with memory and verbose mode
-content_organizer = Agent(
-    role='Content Organizer',
-    goal='Organize raw news data into structured format.',
-    verbose=True,
-    memory=True,
-    backstory=(
-        "With a knack for structuring information, you excel at organizing raw data into meaningful insights."
-        "Your goal is to extract key details from the news articles and present them in a structured format."
-    ),
-    allow_delegation=True,
-)
+content_organizer = agents.organizer_agent()
 
 # Task for organizing data from raw news articles
 organize_data_task = Task(
@@ -64,15 +47,7 @@ organize_data_task = Task(
 )
 
 # Creating the Markdown Generator Agent
-markdown_generator = Agent(
-    role='Report Compiler',
-    goal='Generate a Markdown file from organized news data.',
-    backstory=(
-        "With a talent for storytelling, you excel at transforming raw data into engaging narratives."
-        "Your goal is to compile the organized news data into a Markdown file for easy consumption."
-    ),
-    allow_delegation=True,
-)
+markdown_generator = agents.generator_agent()
 
 # Task to generate Markdown
 generate_markdown_task = Task(
@@ -81,9 +56,6 @@ generate_markdown_task = Task(
     expected_output='Markdown file',
     output_file='tech_news_report.md'
 )
-
-agents = Agents()
-tasks = Tasks()
 
 # Initialize the Crew with the News Collector Agent
 crew = Crew(
@@ -100,5 +72,5 @@ crew = Crew(
 
 if __name__ == '__main__':
     # Starting the task execution process with enhanced feedback
-    result = crew.kickoff(inputs={'topic': 'software engineering'})
+    result = crew.kickoff()
     print(result)

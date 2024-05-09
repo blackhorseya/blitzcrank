@@ -3,7 +3,7 @@ from textwrap import dedent
 
 from crewai import Agent
 from crewai_tools import SerperDevTool
-from langchain.llms import Ollama
+from langchain_community.llms import Ollama
 
 search_tool = SerperDevTool()
 
@@ -26,7 +26,26 @@ class Agents:
         )
 
     def organizer_agent(self) -> Agent:
-        pass
+        return Agent(
+            role='Content Organizer',
+            goal='Organize raw news data into structured format.',
+            backstory=dedent(
+                """With a knack for structuring information, you excel at organizing raw data into meaningful 
+                insights. Your goal is to extract key details from the news articles and present them in a structured 
+                format."""
+            ),
+            allow_delegation=True,
+            llm=self.Ollama,
+        )
 
     def generator_agent(self) -> Agent:
-        pass
+        return Agent(
+            role='Report Compiler',
+            goal='Generate a Markdown file from organized news data.',
+            backstory=dedent(
+                """With a talent for storytelling, you excel at transforming raw data into engaging narratives. Your 
+                goal is to compile the organized news data into a Markdown file for easy consumption."""
+            ),
+            allow_delegation=True,
+            llm=self.Ollama,
+        )
