@@ -25,7 +25,10 @@ crew = Crew(
     agents=[news_collector, content_organizer, markdown_generator],
     tasks=[fetch_news_task, organize_data_task, generate_markdown_task],
     verbose=True,
+    process=Process.sequential,
     memory=True,
+    cache=True,
+    max_rpm=100,
 )
 
 if __name__ == '__main__':
