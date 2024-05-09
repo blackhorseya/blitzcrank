@@ -10,7 +10,7 @@ search_tool = SerperDevTool()
 
 class Agents:
     def __init__(self):
-        self.Ollama = Ollama(model="llama3", base_url=os.getenv("OLLAMA_BASE_URL"))
+        self.Ollama = Ollama(model=os.getenv("OLLAMA_MODEL"), base_url=os.getenv("OLLAMA_BASE_URL"))
 
     def collector_agent(self, topic: str) -> Agent:
         return Agent(
