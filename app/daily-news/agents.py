@@ -22,6 +22,8 @@ class Agents:
                 """
             ),
             tools=[SerperDevTool()],
+            memory=True,
+            allow_delegation=False,
             verbose=True,
             llm=self.Ollama,
         )
@@ -37,6 +39,8 @@ class Agents:
                 """
             ),
             tools=[],
+            memory=True,
+            allow_delegation=False,
             verbose=True,
             llm=self.Ollama,
         )
@@ -50,6 +54,8 @@ class Agents:
                 goal is to compile the organized news data into a Markdown file for easy consumption."""
             ),
             tools=[],
+            memory=True,
+            allow_delegation=False,
             verbose=True,
             llm=self.Ollama,
         )
