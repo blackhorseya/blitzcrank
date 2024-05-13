@@ -1,6 +1,9 @@
 import click
+from dotenv import load_dotenv
 
 from app.daily_news.service import collect_news
+
+load_dotenv()
 
 
 @click.group()
