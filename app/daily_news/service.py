@@ -4,6 +4,4 @@ def collect_news(topic: str) -> str:
     :param topic:
     :return:
     """
-    print(f'Collecting news on the {topic}...')
-
-    return f'News collected on the {topic}.'
+    pass

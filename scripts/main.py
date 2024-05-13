@@ -13,7 +13,11 @@ def cli():
 @click.argument('topic', required=True)
 @click.option('--verbose', is_flag=False, help='Enable verbose mode.')
 def collect(topic: str, verbose: bool):
-    """Collect news on a specific topic."""
+    """
+    Collects news on the given topic.
+    :param topic:
+    :param verbose:
+    """
     if verbose:
         print(f'Collecting news on the {topic}...')
 
