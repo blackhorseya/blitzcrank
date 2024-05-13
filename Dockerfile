@@ -21,8 +21,9 @@ RUN poetry config virtualenvs.create true && \
     poetry config virtualenvs.in-project true && \
     poetry install --no-interaction --no-ansi
 
+ENV PYTHONPATH=/workspace
+
 # Copy the source code into the container.
 COPY . .
 
-# Run the application:
-CMD ["poetry", "run", "python", "app/daily-news/main.py"]
+ENTRYPOINT ["poetry", "run", "python", "scripts/main.py"]
