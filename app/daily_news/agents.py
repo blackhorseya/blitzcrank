@@ -10,7 +10,7 @@ class Agents:
     def __init__(self):
         self.Ollama = Ollama(model=os.getenv("OLLAMA_MODEL"), base_url=os.getenv("OLLAMA_BASE_URL"))
 
-    def collector_agent(self, topic: str) -> Agent:
+    def collector_agent(self, topic: str, verbose: bool) -> Agent:
         return Agent(
             role='Technology News Harvester',
             goal=f'Collect daily technology news from various sources on {topic}.',
@@ -24,11 +24,11 @@ class Agents:
             tools=[SerperDevTool()],
             memory=True,
             allow_delegation=False,
-            verbose=True,
+            verbose=verbose,
             llm=self.Ollama,
         )
 
-    def organizer_agent(self) -> Agent:
+    def organizer_agent(self, verbose: bool) -> Agent:
         return Agent(
             role='Content Organizer',
             goal='Organize raw news data into structured format.',
@@ -41,11 +41,11 @@ class Agents:
             tools=[],
             memory=True,
             allow_delegation=False,
-            verbose=True,
+            verbose=verbose,
             llm=self.Ollama,
         )
 
-    def generator_agent(self) -> Agent:
+    def generator_agent(self, verbose: bool) -> Agent:
         return Agent(
             role='Report Compiler',
             goal='Generate a Markdown file from organized news data.',
@@ -56,6 +56,6 @@ class Agents:
             tools=[],
             memory=True,
             allow_delegation=False,
-            verbose=True,
+            verbose=verbose,
             llm=self.Ollama,
         )

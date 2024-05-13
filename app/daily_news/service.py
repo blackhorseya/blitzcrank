@@ -4,9 +4,10 @@ from app.daily_news.agents import Agents
 from app.daily_news.tasks import Tasks
 
 
-def collect_news(topic: str) -> str:
+def collect_news(topic: str, verbose: bool) -> str:
     """
     Collects news on the given topic.
+    :param verbose:
     :param topic:
     :return:
     """
@@ -14,9 +15,9 @@ def collect_news(topic: str) -> str:
     agents = Agents()
     tasks = Tasks()
 
-    news_collector = agents.collector_agent(topic)
-    content_organizer = agents.organizer_agent()
-    markdown_generator = agents.generator_agent()
+    news_collector = agents.collector_agent(topic, verbose)
+    content_organizer = agents.organizer_agent(verbose)
+    markdown_generator = agents.generator_agent(verbose)
 
     fetch_news_task = tasks.fetch_news_task(news_collector, topic)
     organize_data_task = tasks.organize_data_task(content_organizer)
@@ -27,7 +28,7 @@ def collect_news(topic: str) -> str:
         name='Daily Tech News Crew',
         agents=[news_collector, content_organizer, markdown_generator],
         tasks=[fetch_news_task, organize_data_task, generate_markdown_task],
-        verbose=True,
+        verbose=verbose,
         process=Process.sequential,
         memory=True,
         cache=True,

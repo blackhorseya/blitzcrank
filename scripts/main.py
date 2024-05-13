@@ -14,17 +14,14 @@ def cli():
 
 @click.command()
 @click.argument('topic', required=True)
-@click.option('--verbose', is_flag=False, help='Enable verbose mode.')
+@click.option('--verbose', is_flag=True, help='Enable verbose mode.', default=True)
 def collect(topic: str, verbose: bool):
     """
     Collects news on the given topic.
     :param topic:
     :param verbose:
     """
-    if verbose:
-        print(f'Collecting news on the {topic}...')
-
-    result = collect_news(topic)
+    result = collect_news(topic, verbose=verbose)
     click.echo(result)
 
 
