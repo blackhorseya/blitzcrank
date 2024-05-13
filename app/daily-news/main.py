@@ -34,3 +34,6 @@ crew = Crew(
 if __name__ == '__main__':
     # Starting the task execution process with enhanced feedback
     result = crew.kickoff()
+
+    # Displaying the result of the task execution process
+    print(result)

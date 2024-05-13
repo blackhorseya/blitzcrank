@@ -3,3 +3,5 @@ services:
     image: ghcr.io/blackhorseya/blitzcrank:latest
     build:
       context: .
+    env_file:
+      - app/daily-news/.env
