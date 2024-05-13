@@ -7,11 +7,18 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = ">=3.12,<=3.13"
-crewai = {extras = ["tools"], version = "^0.28.8"}
+crewai = { extras = ["tools"], version = "^0.28.8" }
 python-dotenv = "^1.0.1"
 langchain-community = "^0.0.34"
 click = "^8.1.7"
 
+[tool.commitizen]
+name = "cz_conventional_commits"
+tag_format = "$version"
+version_scheme = "pep440"
+version_provider = "poetry"
+update_changelog_on_bump = true
+major_version_zero = true
 
 [build-system]
 requires = ["poetry-core"]
