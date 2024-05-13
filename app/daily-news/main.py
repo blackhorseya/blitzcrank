@@ -31,13 +31,6 @@ crew = Crew(
     max_rpm=100,
 )
 
-
-def collect_news(topic: str) -> str:
-    print(f'Collecting news on the {topic}...')
-
-    return f'News collected on the {topic}.'
-
-
 if __name__ == '__main__':
     # Starting the task execution process with enhanced feedback
     result = crew.kickoff()
