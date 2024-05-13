@@ -6,16 +6,16 @@ from tasks import Tasks
 
 load_dotenv()
 
-topic = 'software engineering'
+default_topic = 'software engineering'
 
 agents = Agents()
 tasks = Tasks()
 
-news_collector = agents.collector_agent(topic)
+news_collector = agents.collector_agent(default_topic)
 content_organizer = agents.organizer_agent()
 markdown_generator = agents.generator_agent()
 
-fetch_news_task = tasks.fetch_news_task(news_collector, topic)
+fetch_news_task = tasks.fetch_news_task(news_collector, default_topic)
 organize_data_task = tasks.organize_data_task(content_organizer)
 generate_markdown_task = tasks.generate_markdown_task(markdown_generator)
 
@@ -30,6 +30,13 @@ crew = Crew(
     cache=True,
     max_rpm=100,
 )
+
+
+def collect_news(topic: str) -> str:
+    print(f'Collecting news on the {topic}...')
+
+    return f'News collected on the {topic}.'
+
 
 if __name__ == '__main__':
     # Starting the task execution process with enhanced feedback
