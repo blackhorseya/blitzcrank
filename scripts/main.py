@@ -1,6 +1,6 @@
 import click
 
-from app.daily_news.news_service import collect_news
+from app.daily_news.service import collect_news
 
 
 @click.group()
@@ -18,8 +18,10 @@ def collect(topic: str, verbose: bool):
         print(f'Collecting news on the {topic}...')
 
     result = collect_news(topic)
-    print(result)
+    click.echo(result)
 
+
+cli.add_command(collect)
 
 if __name__ == '__main__':
     cli()
