@@ -4,4 +4,4 @@ services:
     build:
       context: .
     env_file:
-      - app/daily-news/.env
+      - app/daily_news/.env

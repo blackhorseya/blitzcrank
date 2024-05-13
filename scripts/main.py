@@ -1,5 +1,7 @@
 import click
 
+from app.daily_news.news_service import collect_news
+
 
 @click.group()
 def cli():
@@ -14,6 +16,9 @@ def collect(topic: str, verbose: bool):
     """Collect news on a specific topic."""
     if verbose:
         print(f'Collecting news on the {topic}...')
+
+    result = collect_news(topic)
+    print(result)
 
 
 if __name__ == '__main__':
