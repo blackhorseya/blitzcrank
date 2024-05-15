@@ -35,20 +35,21 @@ class Tasks:
         return Task(
             description=dedent(
                 f"""
-                你需要收集和分析關於{topic}的最新技术新闻。
-                请专注于识别主要的趋势，新兴的技术，以及市场的影响。
+                You need to collect and analyze the latest technology news about {topic}. 
+                Please focus on identifying major trends, emerging technologies, and market impacts.
                 
-                你的最终输出应该是一个详细的新闻列表，必須包括每篇文章的
-                1. title: 文章标题
-                2. summary: 一段摘要
-                3. link: 一個指向原始文章的URL
-                4. comment: 對這篇文章的專業評論
+                Your final output should be a detailed news list that must include for each article:
+                
+                1. Title: The article title
+                2. Summary: A brief summary
+                3. Link: A URL to the original article
+                4. Comment: A professional comment on the article
                 
                 {self.__tip_section()}
                 """
             ),
             expected_output=dedent(
-                f"""一个包含最新技术新闻摘要和相关链接的列表。"""
+                f"""A list of the latest technology news summaries and related links."""
             ),
             agent=agent,
             tools=[],
@@ -58,14 +59,14 @@ class Tasks:
         return Task(
             description=dedent(
                 f"""
-                根据收集的技术新闻信息和给定的Markdown模板，撰写一份报告。
-                请确保报告格式正确，并且语言通顺易懂。
+                Use the MarkdownGenerator tool to convert the collected news data into a Markdown formatted document.
+                Ensure the document includes titles, summaries, and source links for each news item.
                 
                 {self.__tip_section()}
                 """
             ),
             expected_output=dedent(
-                """一份格式化为Markdown的技术新闻报告文件。"""
+                """A Markdown formatted file with the latest tech news."""
             ),
             output_file=f'{datetime.now().strftime("%Y-%m-%d")}.md',
             agent=agent,
