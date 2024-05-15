@@ -20,7 +20,7 @@ def collect_news(topic: str, verbose: bool) -> str:
     markdown_generator = agents.generator_agent(verbose)
 
     fetch_news_task = tasks.fetch_news_task(news_collector, topic)
-    organize_data_task = tasks.organize_data_task(content_organizer)
+    organize_data_task = tasks.organize_data_task(content_organizer, topic)
     generate_markdown_task = tasks.generate_markdown_task(markdown_generator)
 
     # Initialize the Crew with the News Collector Agent

@@ -5,6 +5,8 @@ from crewai import Agent
 from crewai_tools import SerperDevTool, ScrapeWebsiteTool
 from langchain_community.llms import Ollama
 
+from app.daily_news.tools.markdown import MarkdownFormatter
+
 
 class Agents:
     def __init__(self):
@@ -50,7 +52,7 @@ class Agents:
                 " comprehensible markdown reports. Your goal is to communicate effectively, ensuring"
                 " that insights are not only gathered but shared in an engaging and accessible way."
             ),
-            tools=[SerperDevTool(), ScrapeWebsiteTool()],
+            tools=[MarkdownFormatter()],
             memory=True,
             allow_delegation=False,
             verbose=verbose,
