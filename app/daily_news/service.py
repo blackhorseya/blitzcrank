@@ -26,8 +26,8 @@ def collect_news(topic: str, verbose: bool) -> str:
     # Initialize the Crew with the News Collector Agent
     crew = Crew(
         name='Daily Tech News Crew',
-        agents=[news_collector],
-        tasks=[fetch_news_task],
+        agents=[news_collector, content_organizer, markdown_generator],
+        tasks=[fetch_news_task, organize_data_task, generate_markdown_task],
         verbose=verbose,
         process=Process.sequential,
         memory=True,

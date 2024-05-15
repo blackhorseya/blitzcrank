@@ -2,7 +2,7 @@ import os
 from textwrap import dedent
 
 from crewai import Agent
-from crewai_tools import SerperDevTool
+from crewai_tools import SerperDevTool, ScrapeWebsiteTool
 from langchain_community.llms import Ollama
 
 
@@ -34,7 +34,7 @@ class Agents:
                 """As an Analyst, you are skilled in navigating through large volumes of text and distilling the 
                 essence of information. Your expertise helps in uncovering valuable insights from diverse sources."""
             ),
-            tools=[],
+            tools=[SerperDevTool(), ScrapeWebsiteTool()],
             memory=True,
             allow_delegation=False,
             verbose=verbose,
@@ -50,7 +50,7 @@ class Agents:
                 " comprehensible markdown reports. Your goal is to communicate effectively, ensuring"
                 " that insights are not only gathered but shared in an engaging and accessible way."
             ),
-            tools=[],
+            tools=[SerperDevTool(), ScrapeWebsiteTool()],
             memory=True,
             allow_delegation=False,
             verbose=verbose,
