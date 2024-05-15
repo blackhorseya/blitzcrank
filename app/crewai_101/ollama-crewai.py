@@ -1,7 +1,7 @@
 from crewai import Agent, Task, Crew
 from langchain_community.llms import Ollama
 
-llm = Ollama(model="openhermes", base_url="http://192.168.1.108:11434")
+llm = Ollama(model="crewai-llama3", base_url="http://192.168.1.108:11434")
 
 general_agent = Agent(role="Math Professor",
                       goal="""Provide the solution to the students that are asking mathematical questions and give 

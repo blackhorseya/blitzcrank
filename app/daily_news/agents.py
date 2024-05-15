@@ -14,7 +14,7 @@ class Agents:
 
     def collector_agent(self, topic: str, verbose: bool) -> Agent:
         return Agent(
-            role='Technology News Harvester',
+            role='News Collector',
             goal=f'Collect daily technology news from various sources on {topic}.',
             backstory=dedent(
                 f"""As a digital news hound, your circuits buzz with activity at the mere mention of new 
@@ -23,7 +23,7 @@ class Agents:
             ),
             tools=[SerperDevTool()],
             memory=True,
-            allow_delegation=False,
+            allow_delegation=True,
             verbose=verbose,
             llm=self.Ollama,
         )
@@ -38,7 +38,7 @@ class Agents:
             ),
             tools=[SerperDevTool(), ScrapeWebsiteTool()],
             memory=True,
-            allow_delegation=False,
+            allow_delegation=True,
             verbose=verbose,
             llm=self.Ollama,
         )
@@ -52,7 +52,7 @@ class Agents:
                 " comprehensible markdown reports. Your goal is to communicate effectively, ensuring"
                 " that insights are not only gathered but shared in an engaging and accessible way."
             ),
-            tools=[MarkdownFormatter()],
+            tools=[SerperDevTool(), ScrapeWebsiteTool(), MarkdownFormatter()],
             memory=True,
             allow_delegation=False,
             verbose=verbose,

@@ -40,16 +40,17 @@ class Tasks:
                 
                 Your final output should be a detailed news list that must include for each article:
                 
-                1. Title: The article title
-                2. Summary: A brief summary
-                3. Link: A URL to the original article
-                4. Comment: A professional comment on the article
+                1. title: The article title
+                2. summary: A brief summary
+                3. link: A URL to the original article
+                4. comment: A professional comment on the article
                 
                 {self.__tip_section()}
                 """
             ),
             expected_output=dedent(
-                f"""A list of the latest technology news summaries and related links."""
+                f"""A list of the latest technology news articles about {topic}, 
+                each with a title, summary, link, and comment."""
             ),
             agent=agent,
             tools=[],
