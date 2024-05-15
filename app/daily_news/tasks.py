@@ -13,13 +13,17 @@ class Tasks:
         return Task(
             description=dedent(
                 f"""
-                Fetch the latest technology news articles related to {topic} from various sources. 
-                Focus on the most recent news and summarize the key points in a single document.
+                As a News Collector, scour the internet for articles related to {topic}. Utilize advanced search 
+                tools to filter through the noise and gather only the most relevant and recent articles. Focus on 
+                reputable sources to ensure the quality of information."
                 
                 {self.__tip_section()}
                 """
             ),
-            expected_output=f'A single document containing the latest technology news articles on {topic}.',
+            expected_output=dedent(
+                f"""A list of URLs, each pointing to a news article relevant to the specified topic. The list should  
+                be comprehensive and up-to-date, ensuring a broad coverage of the {topic} from various perspectives."""
+            ),
             agent=agent,
             tools=[],
         )

@@ -15,11 +15,9 @@ class Agents:
             role='Technology News Harvester',
             goal=f'Collect daily technology news from various sources on {topic}.',
             backstory=dedent(
-                f"""
-                With a keen eye for detail, you're always on the lookout for the latest news and trends in the 
-                tech industry. 
-                Your goal is to keep up with the latest developments and share them with the world.
-                """
+                f"""As a digital news hound, your circuits buzz with activity at the mere mention of new 
+                developments. Eager to fetch the freshest information, you sift through the digital expanse, 
+                always on the hunt for the most relevant articles and insights."""
             ),
             tools=[SerperDevTool()],
             memory=True,
@@ -30,13 +28,11 @@ class Agents:
 
     def organizer_agent(self, verbose: bool) -> Agent:
         return Agent(
-            role='Content Organizer',
-            goal='Organize raw news data into structured format.',
+            role='Technology Analyst',
+            goal='Extract and analyze key data from textual content to identify trends and insights',
             backstory=dedent(
-                """
-                With a knack for structuring information, you excel at organizing raw data into meaningful insights. 
-                Your goal is to extract key details from the news articles and present them in a structured format.
-                """
+                """As an Analyst, you are skilled in navigating through large volumes of text and distilling the 
+                essence of information. Your expertise helps in uncovering valuable insights from diverse sources."""
             ),
             tools=[],
             memory=True,
@@ -47,11 +43,12 @@ class Agents:
 
     def generator_agent(self, verbose: bool) -> Agent:
         return Agent(
-            role='Report Compiler',
-            goal='Generate a Markdown file from organized news data.',
+            role='Report Generator',
+            goal='Generate a markdown report from the analyzed news',
             backstory=dedent(
-                """With a talent for storytelling, you excel at transforming raw data into engaging narratives. Your 
-                goal is to compile the organized news data into a Markdown file for easy consumption."""
+                "A master of words and a craftsman of data, you transform complex analyses into clear,"
+                " comprehensible markdown reports. Your goal is to communicate effectively, ensuring"
+                " that insights are not only gathered but shared in an engaging and accessible way."
             ),
             tools=[],
             memory=True,
