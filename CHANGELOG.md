@@ -1,3 +1,14 @@
+## 0.2.0 (2024-05-15)
+
+### Feat
+
+- encode content to base64 before uploading to GitHub
+- integrate GitHub file upload functionality and update dependencies
+
+### Refactor
+
+- refactor date handling in tasks module
+
 ## 0.1.1 (2024-05-13)
 
 ### Feat
