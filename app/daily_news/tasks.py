@@ -1,3 +1,4 @@
+from datetime import datetime
 from textwrap import dedent
 
 from crewai import Agent, Task
@@ -51,7 +52,7 @@ class Tasks:
                 """
             ),
             expected_output='Markdown file',
-            output_file='tech_news_report.md',
+            output_file=f'{datetime.now().strftime("%Y-%m-%d")}.md',
             agent=agent,
             tools=[],
         )
