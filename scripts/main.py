@@ -29,13 +29,13 @@ def collect(topic: str, verbose: bool):
     """
     result = collect_news(topic, verbose=verbose)
 
-    file_name = f"{datetime.now().strftime('%Y-%m-%d')}.md"
-    with open(file_name, "rb") as file:
-        content = file.read()
-
-    # upload the markdown file to the GitHub repository
-    print(upload_to_github(repo="blackhorseya/note1", path=f"4. Archives/news/{file_name}",
-                           token=github_token, content=content, commit_message="Updated via API"))
+    # file_name = f"{datetime.now().strftime('%Y-%m-%d')}.md"
+    # with open(file_name, "rb") as file:
+    #     content = file.read()
+    #
+    # # upload the markdown file to the GitHub repository
+    # print(upload_to_github(repo="blackhorseya/note1", path=f"4. Archives/news/{file_name}",
+    #                        token=github_token, content=content, commit_message="Updated via API"))
 
     click.echo(result)
 
