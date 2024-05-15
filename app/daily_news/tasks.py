@@ -17,7 +17,7 @@ class Tasks:
                 f"""
                 As a News Collector, scour the internet for articles related to {topic}. Utilize advanced search 
                 tools to filter through the noise and gather only the most relevant and recent articles. Focus on 
-                reputable sources to ensure the quality of information."
+                reputable sources to ensure the quality of information.
                 
                 {self.__tip_section()}
                 """
@@ -49,8 +49,7 @@ class Tasks:
                 """
             ),
             expected_output=dedent(
-                f"""A list of the latest technology news articles about {topic}, 
-                each with a title, summary, link, and comment."""
+                f"""A list of the latest technology news articles about {topic}"""
             ),
             agent=agent,
             tools=[],
