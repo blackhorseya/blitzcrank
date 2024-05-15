@@ -1,9 +1,15 @@
+import os
+from datetime import datetime
+
 import click
 from dotenv import load_dotenv
 
 from app.daily_news.service import collect_news
+from app.utils.github import upload_to_github
 
 load_dotenv()
+
+github_token = os.getenv("GITHUB_TOKEN")
 
 
 @click.group()
@@ -22,6 +28,15 @@ def collect(topic: str, verbose: bool):
     :param verbose:
     """
     result = collect_news(topic, verbose=verbose)
+
+    file_name = f"{datetime.now().strftime('%Y-%m-%d')}.md"
+    with open(file_name, "rb") as file:
+        content = file.read()
+
+    # upload the markdown file to the GitHub repository
+    print(upload_to_github(repo="blackhorseya/note1", path=f"4. Archives/news/{file_name}",
+                           token=github_token, content=content, commit_message="Updated via API"))
+
     click.echo(result)
 
 

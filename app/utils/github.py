@@ -1,7 +1,9 @@
+import base64
+
 import requests
 
 
-def upload_to_github(repo: str, path: str, token: str, content: str, commit_message: str = "Updated via API"):
+def upload_to_github(repo: str, path: str, token: str, content, commit_message: str = "Updated via API") -> str:
     """
     Upload a file to GitHub repository using GitHub API.
 
@@ -21,6 +23,9 @@ def upload_to_github(repo: str, path: str, token: str, content: str, commit_mess
         "Accept": "application/vnd.github.v3+json"
     }
 
+    # Encode content to base64
+    encoded_content = base64.b64encode(content).decode()
+
     # Get the sha of the file if it exists
     response = requests.get(url, headers=headers)
     if response.status_code == 200:
@@ -31,7 +36,7 @@ def upload_to_github(repo: str, path: str, token: str, content: str, commit_mess
     # Prepare the data for updating or creating the file
     data = {
         "message": commit_message,
-        "content": content.encode("utf-8").decode("utf-8"),
+        "content": encoded_content,
     }
     if sha:
         data["sha"] = sha
