@@ -3,6 +3,8 @@ from textwrap import dedent
 
 from crewai import Agent, Task
 
+from app.daily_news.tools.markdown import MarkdownFormatter
+
 
 class Tasks:
     @staticmethod
@@ -21,27 +23,32 @@ class Tasks:
                 """
             ),
             expected_output=dedent(
-                f"""A list of URLs, each pointing to a news article relevant to the specified topic. The list should  
+                f"""
+                A list of URLs, each pointing to a news article relevant to the specified topic. The list should  
                 be comprehensive and up-to-date, ensuring a broad coverage of the {topic} from various perspectives."""
             ),
             agent=agent,
             tools=[],
         )
 
-    def organize_data_task(self, agent: Agent) -> Task:
+    def organize_data_task(self, agent: Agent, topic: str) -> Task:
         return Task(
             description=dedent(
-                f""" Using the articles collected, perform a detailed analysis to identify key themes, trends, 
-                and statistical data. Extract important points such as technological advancements, market impacts, 
-                and expert opinions. Summarize these insights to prepare for effective reporting.
+                f"""
+                你需要收集和分析關於{topic}的最新技术新闻。
+                请专注于识别主要的趋势，新兴的技术，以及市场的影响。
+                
+                你的最终输出应该是一个详细的新闻列表，必須包括每篇文章的
+                1. title: 文章标题
+                2. summary: 一段摘要
+                3. link: 一個指向原始文章的URL
+                4. comment: 對這篇文章的專業評論
                 
                 {self.__tip_section()}
                 """
             ),
             expected_output=dedent(
-                f"""A structured document containing summarized points from each article, including key data and 
-                trends identified during the analysis. This document should organize information in a way that 
-                highlights the most critical insights for easy reference in the next task."""
+                f"""一个包含最新技术新闻摘要和相关链接的列表。"""
             ),
             agent=agent,
             tools=[],
@@ -50,19 +57,17 @@ class Tasks:
     def generate_markdown_task(self, agent: Agent) -> Task:
         return Task(
             description=dedent(
-                f"""Compile the insights from the analysis into a cohesive and engaging markdown report. Structure 
-                the document to include an introduction, detailed sections on each key finding, and a conclusive 
-                summary. Use markdown formatting to enhance readability and professional presentation.
+                f"""
+                根据收集的技术新闻信息和给定的Markdown模板，撰写一份报告。
+                请确保报告格式正确，并且语言通顺易懂。
                 
                 {self.__tip_section()}
                 """
             ),
             expected_output=dedent(
-                """A markdown file that effectively communicates the findings from the analysis. The report should be 
-                clear, well-structured, and ready for publication or internal distribution. Include headings, 
-                bullet points, and any necessary code snippets or data visualizations to support the text."""
+                """一份格式化为Markdown的技术新闻报告文件。"""
             ),
             output_file=f'{datetime.now().strftime("%Y-%m-%d")}.md',
             agent=agent,
-            tools=[],
+            tools=[MarkdownFormatter()],
         )
