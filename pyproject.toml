@@ -11,7 +11,7 @@ crewai = { extras = ["tools"], version = "^0.28.8" }
 python-dotenv = "^1.0.1"
 langchain-community = "^0.0.34"
 click = "^8.1.7"
-requests = "^2.31.0"
+requests = "^2.32.0"
 
 [tool.commitizen]
 name = "cz_conventional_commits"
