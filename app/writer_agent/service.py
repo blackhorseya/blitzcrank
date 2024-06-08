@@ -1,6 +1,8 @@
 import os
+
 from crewai import Agent, Crew, Process, Task
 from crewai_tools import BaseTool
+
 
 # 定义自定义工具，用于读取 Markdown 文件
 class MarkdownReaderTool(BaseTool):
@@ -17,9 +19,11 @@ class MarkdownReaderTool(BaseTool):
         except Exception as e:
             return f"An error occurred while reading the file: {e}"
 
+
 # 定义一个包含提示信息的函数
 def __tip_section():
     return "If you do your BEST WORK, I'll give you a $10,000 commission!"
+
 
 # 初始化自定义工具
 markdown_reader = MarkdownReaderTool()
