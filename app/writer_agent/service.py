@@ -1,6 +1,8 @@
 import os
+
 from crewai import Agent, Crew, Process, Task
 from crewai_tools import BaseTool
+
 
 # 定义自定义工具，用于读取 Markdown 文件
 class MarkdownReaderTool(BaseTool):
@@ -17,9 +19,11 @@ class MarkdownReaderTool(BaseTool):
         except Exception as e:
             return f"An error occurred while reading the file: {e}"
 
+
 # 定义一个包含提示信息的函数
 def __tip_section():
     return "If you do your BEST WORK, I'll give you a $10,000 commission!"
+
 
 # 初始化自定义工具
 markdown_reader = MarkdownReaderTool()
@@ -27,7 +31,7 @@ markdown_reader = MarkdownReaderTool()
 # 创建技术专家代理
 tech_expert = Agent(
     role='Tech Expert',
-    goal='Read and analyze the notes from a markdown file {file_path} and provide a comprehensive analysis.',
+    goal='Read and analyze the notes from a markdown file {file_path} and provide a comprehensive analysis and explanation.',
     verbose=True,
     memory=True,
     backstory=(
@@ -41,7 +45,7 @@ tech_expert = Agent(
 # 创建写手代理，能够生成完整的博客文章
 writer = Agent(
     role='Writer',
-    goal='Create a professional blog post based on the comprehensive analysis provided by the tech expert, including title, subtitle, content, and tags.',
+    goal='Create a professional blog post based on the comprehensive analysis provided by the tech expert, including title, subtitle, content, code examples, and tags.',
     verbose=True,
     memory=True,
     backstory=(
@@ -55,31 +59,34 @@ writer = Agent(
 # 创建技术分析任务
 tech_analysis_task = Task(
     description=(
-            "Read the notes from the provided markdown file and provide a comprehensive analysis. The analysis should include the following sections:\n"
+            "Read the notes from the provided markdown file and provide a comprehensive analysis and explanation. The analysis should include the following sections:\n"
             "- Key Points: Highlight the main points and concepts discussed in the notes\n"
             "- Detailed Information: Provide detailed information and explanations for each key point\n"
+            "- Explanation of Design Principles: Explain the design principles and concepts mentioned in the notes\n"
             "- Relevant Examples or Case Studies: Include relevant examples or case studies to illustrate the points\n"
             "- Conclusion: Summarize the findings and discuss the implications\n"
             + __tip_section()
     ),
-    expected_output='A comprehensive analysis of the notes, including key points, detailed information, examples, and conclusion.',
+    expected_output='A comprehensive analysis of the notes, including key points, detailed information, explanations of design principles, examples, and conclusion.',
     tools=[markdown_reader],
     agent=tech_expert,
     async_execution=False,
     output_file='testdata/tech-analysis.md',
-    timeout=1800  # 设置超时时间为30分钟
+    timeout=1800,  # 设置超时时间为30分钟
+    human_input=True  # 需要人类输入以监督任务
 )
 
 # 创建内容创作任务，要求生成完整的博客文章
 content_creation_task = Task(
     description=(
             "Read the comprehensive analysis from the tech expert (testdata/tech-analysis.md) and create a professional blog post. The post should include a compelling title, a relevant "
-            "subtitle, and appropriate tags. Ensure the content is well-structured, engaging, and easy to understand. The blog post should cover the following sections:\n"
+            "subtitle, appropriate tags, and ensure the inclusion of code examples where relevant. The blog post should cover the following sections:\n"
             "- Title: A compelling title that summarizes the blog post\n"
             "- Subtitle: A relevant subtitle that provides additional background information or an overview of the content\n"
             "- Introduction: Brief introduction to the topic\n"
             "- Subsections: Relevant subsections that break down the content into sections\n"
             "- Content: Engaging and informative content based on the comprehensive analysis, including examples and detailed analysis\n"
+            "- Code Examples: Include relevant code examples to illustrate key points\n"
             "- Tags: Include appropriate tags for the blog post\n"
             "- Conclusion: Summarize the findings and provide a closing thought\n"
             + __tip_section()
@@ -91,6 +98,7 @@ content_creation_task = Task(
         "- Introduction: Brief introduction to the topic\n"
         "- Subsections: Relevant subsections that break down the content\n"
         "- Content: Engaging and informative content based on the comprehensive analysis, including examples and detailed analysis\n"
+        "- Code Examples: Include relevant code examples to illustrate key points\n"
         "- Tags: Appropriate tags for the blog post\n"
         "- Conclusion: Summarize the findings and provide a closing thought"
     ),
@@ -98,7 +106,8 @@ content_creation_task = Task(
     agent=writer,
     async_execution=False,
     output_file='testdata/professional-blog-post.md',
-    timeout=1800  # 设置超时时间为30分钟
+    timeout=1800,  # 设置超时时间为30分钟
+    human_input=True  # 需要人类输入以监督任务
 )
 
 # 创建包含技术专家代理和写手代理的团队
