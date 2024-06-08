@@ -1,9 +1,8 @@
 import os
-
 from crewai import Agent, Crew, Process, Task
 from crewai_tools import BaseTool
 
-
+# 定義自定義工具，用於讀取 Markdown 文件
 class MarkdownReaderTool(BaseTool):
     name: str = "MarkdownReader"
     description: str = "Reads content from a specified markdown file."
@@ -18,11 +17,10 @@ class MarkdownReaderTool(BaseTool):
         except Exception as e:
             return f"An error occurred while reading the file: {e}"
 
-
-# Initialize the custom tool
+# 初始化自定義工具
 markdown_reader = MarkdownReaderTool()
 
-# Create the tech expert agent with enhanced capabilities
+# 創建技術專家代理
 tech_expert = Agent(
     role='Tech Expert',
     goal='Analyze the notes from a markdown file {file_path} and write a comprehensive blog post.',
@@ -36,10 +34,10 @@ tech_expert = Agent(
     allow_delegation=False
 )
 
-# Create the writer agent with a broader goal and memory capabilities
+# 創建寫手代理，能夠生成完整的博客文章
 writer = Agent(
     role='Writer',
-    goal='Create engaging and informative content based on various sources including markdown files.',
+    goal='Create a professional blog post based on notes from a markdown file, including title, subtitles, and tags.',
     verbose=True,
     memory=True,
     backstory=(
@@ -50,35 +48,54 @@ writer = Agent(
     allow_delegation=False
 )
 
-# Create a detailed writing task
+# 創建技術分析任務
 tech_analysis_task = Task(
     description=(
         "Read the notes from the provided markdown file and write a comprehensive blog post. The post should be well-structured, engaging,"
-        "and provide in-depth technical analysis. Make sure to include all the important points from the notes and expand on any complex topics."
+        "and provide in-depth technical analysis. Ensure to include the following sections:\n"
+        "- Introduction: Provide a brief overview of the topic\n"
+        "- Key Points: Highlight the main points and concepts discussed in the notes\n"
+        "- Detailed Analysis: Expand on the key points with in-depth analysis, examples, and explanations\n"
+        "- Case Studies or Examples: Include relevant case studies or practical examples to illustrate the points\n"
+        "- Conclusion: Summarize the findings and discuss the implications"
     ),
-    expected_output='A detailed and well-structured blog post based on the provided notes.',
+    expected_output='A detailed and well-structured blog post based on the provided notes, including introduction, key points, detailed analysis, examples, and conclusion.',
     tools=[markdown_reader],
     agent=tech_expert,
     async_execution=False,
-    output_file='tech-blog-post.md',
-    timeout=1800  # Set a timeout of 30 minutes
+    output_file='testdata/tech-blog-post.md',
+    timeout=1800  # 設置超時時間為30分鐘
 )
 
-# Create another task for the writer agent
+# 創建內容創作任務，要求生成完整的博客文章
 content_creation_task = Task(
     description=(
-        "Use the information from the markdown file (tech-blog-post.md) and other available sources to write an engaging and informative article. The article"
-        "should be easy to understand, cover all important points, and be formatted appropriately for a blog post."
+        "Read the detailed tech blog post from the file (testdata/tech-blog-post.md) and create a professional blog post. The post should include a compelling title, relevant"
+        "subtitles, and appropriate tags. Ensure the content is well-structured, engaging, and easy to understand. The blog post should cover the following sections:\n"
+        "- Title: A compelling title that summarizes the blog post\n"
+        "- Introduction: Brief introduction to the topic\n"
+        "- Subtitles: Relevant subtitles that break down the content into sections\n"
+        "- Content: Engaging and informative content based on the provided notes, including examples and detailed analysis\n"
+        "- Tags: Appropriate tags for the blog post\n"
+        "- Conclusion: Summarize the findings and provide a closing thought"
     ),
-    expected_output='An engaging and informative blog article based on the provided notes.',
+    expected_output=(
+        "A professional blog post with the following structure:\n"
+        "- Title: A compelling title that summarizes the blog post\n"
+        "- Introduction: Brief introduction to the topic\n"
+        "- Subtitles: Relevant subtitles that break down the content\n"
+        "- Content: Engaging and informative content based on the provided notes, including examples and detailed analysis\n"
+        "- Tags: Appropriate tags for the blog post\n"
+        "- Conclusion: Summarize the findings and provide a closing thought"
+    ),
     tools=[markdown_reader],
     agent=writer,
     async_execution=False,
-    output_file='engaging-blog-article.md',
-    timeout=1800  # Set a timeout of 30 minutes
+    output_file='testdata/professional-blog-post.md',
+    timeout=1800  # 設置超時時間為30分鐘
 )
 
-# Form the crew with the tech expert agent and writing task
+# 創建包含技術專家代理和寫手代理的團隊
 crew = Crew(
     agents=[tech_expert, writer],
     tasks=[tech_analysis_task, content_creation_task],
@@ -86,7 +103,7 @@ crew = Crew(
 )
 
 if __name__ == '__main__':
-    # Provide the path to the markdown file
-    inputs = {'file_path': 'notes.md'}  # Ensure this path is correct
+    # 提供 Markdown 文件的路徑
+    inputs = {'file_path': 'testdata/notes.md'}  # 確保這個路徑是正確的
     result = crew.kickoff(inputs=inputs)
     print(result)
