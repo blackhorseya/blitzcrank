@@ -1,11 +1,9 @@
 import os
-from datetime import datetime
 
 import click
 from dotenv import load_dotenv
 
 from app.daily_news.service import collect_news
-from app.utils.github import upload_to_github
 
 load_dotenv()
 
@@ -40,7 +38,17 @@ def collect(topic: str, verbose: bool):
     click.echo(result)
 
 
+@click.command()
+def rewrite():
+    """
+    Rewrite the post.
+    :return:
+    """
+    pass
+
+
 cli.add_command(collect)
+cli.add_command(rewrite)
 
 if __name__ == '__main__':
     cli()
