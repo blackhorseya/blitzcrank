@@ -1,8 +1,6 @@
 import os
-
 from crewai import Agent, Crew, Process, Task
 from crewai_tools import BaseTool
-
 
 # 定义自定义工具，用于读取 Markdown 文件
 class MarkdownReaderTool(BaseTool):
@@ -19,11 +17,9 @@ class MarkdownReaderTool(BaseTool):
         except Exception as e:
             return f"An error occurred while reading the file: {e}"
 
-
 # 定义一个包含提示信息的函数
 def __tip_section():
     return "If you do your BEST WORK, I'll give you a $10,000 commission!"
-
 
 # 初始化自定义工具
 markdown_reader = MarkdownReaderTool()
@@ -45,7 +41,7 @@ tech_expert = Agent(
 # 创建写手代理，能够生成完整的博客文章
 writer = Agent(
     role='Writer',
-    goal='Create a professional blog post based on the comprehensive analysis provided by the tech expert, including title, subtitle, content, code examples, and tags.',
+    goal='Rewrite the blog post based on the comprehensive analysis provided by the tech expert, including title, subtitle, content, code examples, and tags.',
     verbose=True,
     memory=True,
     backstory=(
@@ -76,10 +72,10 @@ tech_analysis_task = Task(
     human_input=True  # 需要人类输入以监督任务
 )
 
-# 创建内容创作任务，要求生成完整的博客文章
+# 创建内容创作任务，要求重新撰写博客文章
 content_creation_task = Task(
     description=(
-            "Read the comprehensive analysis from the tech expert (testdata/tech-analysis.md) and create a professional blog post. The post should include a compelling title, a relevant "
+            "Read the comprehensive analysis from the tech expert (testdata/tech-analysis.md) and rewrite the blog post. The post should include a compelling title, a relevant "
             "subtitle, appropriate tags, and ensure the inclusion of code examples where relevant. The blog post should cover the following sections:\n"
             "- Title: A compelling title that summarizes the blog post\n"
             "- Subtitle: A relevant subtitle that provides additional background information or an overview of the content\n"
