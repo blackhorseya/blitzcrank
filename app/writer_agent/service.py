@@ -86,7 +86,8 @@ content_creation_task = Task(
             "- Introduction: Brief introduction to the topic\n"
             "- Subsections: Relevant subsections that break down the content into sections\n"
             "- Content: Engaging and informative content based on the comprehensive analysis, including examples and detailed analysis\n"
-            "- Code Examples: Include relevant code examples to illustrate key points\n"
+            "- Code Examples: Include relevant code "
+            "examples to illustrate key points\n"
             "- Tags: Include appropriate tags for the blog post\n"
             "- Conclusion: Summarize the findings and provide a closing thought\n"
             + __tip_section()
