@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from talent_assist.crew import TalentAssistCrew
+from app.talent_assist.crew import TalentAssistCrew
 
 
 def run():
